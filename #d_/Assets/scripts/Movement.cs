@@ -11,7 +11,8 @@ public class Movement : MonoBehaviour
 
     public Rigidbody Rg;
     public Animator Andar;
-    public Transform Gfx;
+    public Transform direcional;
+    public Rigidbody Origen;
     
 
 
@@ -32,11 +33,7 @@ public class Movement : MonoBehaviour
             Rg = GetComponent<Rigidbody>();
         }
 
-        if(Gfx == null)
-        {
-            Gfx = GetComponent<Transform>();
-
-        }
+        
         jumps = extrajumps;
     }
 
@@ -76,9 +73,23 @@ public class Movement : MonoBehaviour
         
         
         Vector3 direção = new Vector3(movimento.x* moveSpeed * Time.fixedDeltaTime, Rg.velocity.y, movimento.z * moveSpeed * Time.fixedDeltaTime);
-        Debug.Log(direção);
+        
+        
         Rg.velocity = direção;
+        Origen.position = Rg.position;
+        
 
-        //movimento.y = 0;
+        Origen.position = new Vector3(Origen.position.x - Rg.centerOfMass.x, Origen.position.y - Rg.centerOfMass.y, Origen.position.z - Rg.centerOfMass.z);
+
+        //direcional.position = new Vector3(Origen.position.x + movimento.x, Origen.position.y + 0 ,Origen.position.z + movimento.z);
+        if(movimento.x == 1 && movimento.z == 0)
+        {
+            //Origen.rotation = 90;
+
+        }
+
+
+
+        
     }
 }
