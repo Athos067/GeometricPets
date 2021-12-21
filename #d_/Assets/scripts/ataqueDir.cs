@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class ataqueDir : MonoBehaviour
 {
-    public Transform dir;
+   
 
-    public Movement Movimento;
-    // Start is called before the first frame update
-    void Start()
+    public Animator animator;
+
+    public float ataquetempo = 2f;
+    private float nextataquetempo = 0f;
+    
+    void Update()
     {
+        if(Time.time >= nextataquetempo)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Ataque();
+                nextataquetempo = Time.time + 1f/ ataquetempo;
+
+            }
+
+        }
+        
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void Ataque()
     {
-        dir.position = Movimento.movimento;
-        
+        animator.SetTrigger("atack");
     }
 }

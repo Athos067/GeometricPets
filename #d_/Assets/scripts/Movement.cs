@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
     private int jumps;
 
     public Rigidbody Rg;
-    public Animator Andar;
+    public Animator animator;
     public Transform direcional;
     public Rigidbody Origen;
     
@@ -42,6 +42,13 @@ public class Movement : MonoBehaviour
     {
         movimento.x = Input.GetAxisRaw("Horizontal");
         movimento.z = Input.GetAxisRaw("Vertical");
+
+        if(animator != null)
+        {
+            animator.SetInteger("Move.X", (int) movimento.x);
+            animator.SetInteger("Move.Z", (int) movimento.z);
+
+        }
         
     }
 
@@ -82,9 +89,27 @@ public class Movement : MonoBehaviour
         Origen.position = new Vector3(Origen.position.x - Rg.centerOfMass.x, Origen.position.y - Rg.centerOfMass.y, Origen.position.z - Rg.centerOfMass.z);
 
         //direcional.position = new Vector3(Origen.position.x + movimento.x, Origen.position.y + 0 ,Origen.position.z + movimento.z);
+        if(movimento.x == 0 && movimento.z == -1)
+        {
+            direcional.rotation = new Quaternion(direcional.rotation.x, 90, direcional.rotation.z, 90);
+
+        }
+
         if(movimento.x == 1 && movimento.z == 0)
         {
-            //Origen.rotation = 90;
+            direcional.rotation = new Quaternion(direcional.rotation.x, 0, direcional.rotation.z, 90);
+
+        }
+
+        if(movimento.x == -1 && movimento.z == 0)
+        {
+            direcional.rotation = new Quaternion(direcional.rotation.x, 180, direcional.rotation.z, 0);
+
+        }
+
+        if(movimento.x == 0 && movimento.z == 1)
+        {
+            direcional.rotation = new Quaternion(direcional.rotation.x, 270, direcional.rotation.z, -270);
 
         }
 
