@@ -13,9 +13,10 @@ public class Movement : MonoBehaviour
     public Animator animator;
     public Transform direcional;
     public Rigidbody Origen;
+    private Quaternion rotação;
     
 
-
+    public ataqueDir Atdir;
 
     public Vector3 movimento;
 
@@ -31,6 +32,11 @@ public class Movement : MonoBehaviour
         if(Rg == null)
         {
             Rg = GetComponent<Rigidbody>();
+        }
+
+        if(Atdir == null)
+        {
+            Atdir = GetComponent<ataqueDir>();
         }
 
         
@@ -55,63 +61,109 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         //chão = Physics3D.OverlapCircle(checasolo.position, checaraio, oqsolo);
-
-        if(Input.GetButtonDown("Jump"))
+        if(!Atdir.atacando)
         {
-            if(chão)
+            if(Input.GetButtonDown("Jump"))
             {
-                jumps = extrajumps;
+                if(chão)
+                {
+                    jumps = extrajumps;
+
+                }
+
+
+                Rg.AddForce(Rg.velocity.x,5f,Rg.velocity.z);
+                chão = false;
+                
+                
 
             }
 
-
-            Rg.AddForce(Rg.velocity.x,5f,Rg.velocity.z);
-            chão = false;
             
             
+            
+            
+            
+            
+            
+            Vector3 direção = new Vector3(movimento.x* moveSpeed * Time.fixedDeltaTime, Rg.velocity.y, movimento.z * moveSpeed * Time.fixedDeltaTime);
+            
+            
+            Rg.velocity = direção;
+
+            Origen.position = Rg.position;
+            
+
+            Origen.position = new Vector3(Origen.position.x - Rg.centerOfMass.x, Origen.position.y - Rg.centerOfMass.y, Origen.position.z - Rg.centerOfMass.z);
+
+            //direcional.position = new Vector3(Origen.position.x + movimento.x, Origen.position.y + 0 ,Origen.position.z + movimento.z);
+            if(movimento.x == 0 && movimento.z == -1)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 90, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == 1 && movimento.z == 0)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 0, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == -1 && movimento.z == 0)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 180, direcional.rotation.z);
+                
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == 0 && movimento.z == 1)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 270, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == 1 && movimento.z == 1)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 325, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == 1 && movimento.z == -1)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 45, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == -1 && movimento.z == 1)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 225, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
+
+            if(movimento.x == -1 && movimento.z == -1)
+            {
+                rotação = Quaternion.Euler(direcional.rotation.x, 135, direcional.rotation.z);
+
+                direcional.rotation = rotação;
+
+            }
 
         }
 
         
-        
-        
-        
-        
-        
-        
-        Vector3 direção = new Vector3(movimento.x* moveSpeed * Time.fixedDeltaTime, Rg.velocity.y, movimento.z * moveSpeed * Time.fixedDeltaTime);
-        
-        
-        Rg.velocity = direção;
-        Origen.position = Rg.position;
-        
-
-        Origen.position = new Vector3(Origen.position.x - Rg.centerOfMass.x, Origen.position.y - Rg.centerOfMass.y, Origen.position.z - Rg.centerOfMass.z);
-
-        //direcional.position = new Vector3(Origen.position.x + movimento.x, Origen.position.y + 0 ,Origen.position.z + movimento.z);
-        if(movimento.x == 0 && movimento.z == -1)
-        {
-            direcional.rotation = new Quaternion(direcional.rotation.x, 90, direcional.rotation.z, 90);
-
-        }
-
-        if(movimento.x == 1 && movimento.z == 0)
-        {
-            direcional.rotation = new Quaternion(direcional.rotation.x, 0, direcional.rotation.z, 90);
-
-        }
-
-        if(movimento.x == -1 && movimento.z == 0)
-        {
-            direcional.rotation = new Quaternion(direcional.rotation.x, 180, direcional.rotation.z, 0);
-
-        }
-
-        if(movimento.x == 0 && movimento.z == 1)
-        {
-            direcional.rotation = new Quaternion(direcional.rotation.x, 270, direcional.rotation.z, -270);
-
-        }
 
 
 

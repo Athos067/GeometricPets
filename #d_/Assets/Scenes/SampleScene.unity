@@ -717,6 +717,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 73060416560554122, guid: 844f6be3b73732b4287f6ca1e7d04804, type: 3}
+      propertyPath: ataquetempo
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 73060416560554122, guid: 844f6be3b73732b4287f6ca1e7d04804, type: 3}
+      propertyPath: tempoataque
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7568957088773312396, guid: 844f6be3b73732b4287f6ca1e7d04804, type: 3}
       propertyPath: m_Name
       value: quadrado
